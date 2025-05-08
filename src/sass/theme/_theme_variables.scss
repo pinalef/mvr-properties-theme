@@ -1,0 +1,14 @@
+// Use this file to overwrite the basic Bootstrap variables and add your own variables
+// To overwrite a Bootstrap variable you don´t have to touch the Bootstrap folder.
+// Just copy a variable from src/sass/bootstrap4/_variables.scss, paste it here and edit the value.
+
+$black: #000929 !default;
+
+// $purple: #0d6efd; // Thats a sample how you could change a BootStrap variable.
+//$primary: $blue;  // Once we've changed the value, we'll also make it the primary brand color.
+
+// $btn-link-color: #fff;
+
+$body-color: $black !default;
+
+$nav-link-color: $black !default;

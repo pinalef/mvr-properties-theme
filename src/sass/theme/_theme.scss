@@ -1,0 +1,80 @@
+// This is an empty scss file for your custom styles - Please add your super duper awesome mega design styles here
+
+.btn-primary {
+	--bs-btn-color: #fff;
+}
+
+/* .nav-link {
+    --bs-nav-link-color: #000929;
+    $nav-link-transition:     color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
+} */
+
+.nav-link {
+	--bs-nav-link-color: #000929;
+	font-weight: 400; // Peso inicial
+	font-size: 1.2rem;
+	transition: font-variation-settings 0.3s ease-in-out;
+
+	&:hover {
+		/*  font-weight: 300; // Peso al pasar el cursor
+      margin-left: 1px;
+ */
+
+		background-color: #f0f0f0;
+		color: #333;
+		text-decoration: underline;
+		transform: scale(1.05);
+	}
+}
+
+.form-control {
+	font-size: 1.25rem;
+}
+#wpadminbar {
+	display: none;
+}
+//override default wordpress height
+html {
+	margin-top: 0 !important;
+}
+
+.blockquote {
+	font-size: 1.75rem;
+}
+
+.zi-n1 {
+	z-index: -1 !important;
+}
+.ms-n7 {
+	margin-left: -3rem !important;
+}
+.mb-n7 {
+	margin-bottom: -3rem !important;
+}
+
+.wsp-button {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	padding: 1rem;
+	z-index: 1000;
+}
+
+.bi.bi-quote.inverted-text::before {
+	transform: scaleX(-1);
+}
+
+h2.title-underline {
+	position: relative;
+}
+
+h2.title-underline::before {
+	content: "";
+	display: inline-block;
+	width: 3.75rem; /* Adjust this value to control the underline length */
+	height: 0.5rem;
+	background-color: #b5fbff; /* Optional: Define color of underline */
+	position: absolute;
+	top: 48px;
+	left: 0;
+}
