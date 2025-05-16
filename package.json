@@ -26,7 +26,8 @@
     "copy-assets": "node src/build/copy-assets.js",
     "dist": "npm-run-all --parallel css js css-bs4 js-bs4",
     "dist-build": "node src/build/dist-build.js",
-    "dist-clean": "node src/build/dist-clean.js"
+    "dist-clean": "node src/build/dist-clean.js",
+    "start": "gulp"
   },
   "babel": {
     "extends": "./src/build/babel.config.js"
@@ -63,13 +64,16 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
     "autoprefixer": "^10.4.19",
-    "bootstrap": "~5.2.3",
+    "bootstrap": "^5.3.6",
     "bootstrap4": "npm:bootstrap@^4.6.2",
     "browser-sync": "^3.0.2",
     "browserslist": "^4.22.1",
     "caniuse-lite": "^1.0.30001547",
     "clean-css-cli": "^5.6.3",
     "font-awesome": "^4.7.0",
+    "gulp": "^5.0.0",
+    "gulp-postcss": "^9.0.0",
+    "gulp-sass": "^5.0.0",
     "nodemon": "^3.1.0",
     "npm-run-all": "^4.1.5",
     "popper.js": "^1.16.1",

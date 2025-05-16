@@ -51,3 +51,15 @@ phpcs.xml
 dist/
 dist-product/
 **/img
+
+
+# WordPress core
+wp-admin/
+wp-includes/
+# Subidas
+wp-content/uploads/
+# Node
+wp-content/themes/mvr-properties-theme/node_modules/
+wp-content/themes/understrap/node_modules/
+# Config sensible
+wp-config.php

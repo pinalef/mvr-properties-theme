@@ -1,4 +1,5 @@
 <?php
+
 /**
  * UnderStrap functions and definitions
  *
@@ -6,7 +7,7 @@
  */
 
 // Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 // UnderStrap's includes directory.
 $understrap_inc_dir = 'inc';
@@ -30,16 +31,22 @@ $understrap_includes = array(
 );
 
 // Load WooCommerce functions if WooCommerce is activated.
-if ( class_exists( 'WooCommerce' ) ) {
+if (class_exists('WooCommerce')) {
 	$understrap_includes[] = '/woocommerce.php';
 }
 
 // Load Jetpack compatibility file if Jetpack is activiated.
-if ( class_exists( 'Jetpack' ) ) {
+if (class_exists('Jetpack')) {
 	$understrap_includes[] = '/jetpack.php';
 }
 
 // Include files.
-foreach ( $understrap_includes as $file ) {
-	require_once get_theme_file_path( $understrap_inc_dir . $file );
+foreach ($understrap_includes as $file) {
+	require_once get_theme_file_path($understrap_inc_dir . $file);
+}
+
+add_action('wp_enqueue_scripts', 'enqueue_parent_styles');
+function enqueue_parent_styles()
+{
+	wp_enqueue_style('understrap-styles', get_template_directory_uri() . '/css/theme.min.css');
 }
