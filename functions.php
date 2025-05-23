@@ -50,3 +50,60 @@ function enqueue_parent_styles()
 {
 	wp_enqueue_style('understrap-styles', get_template_directory_uri() . '/css/theme.min.css');
 }
+
+//bootstrap icons
+function child_understrap_enqueue_cdn_icons()
+{
+	wp_enqueue_style(
+		'bootstrap-icons-cdn',
+		'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css',
+		[],
+		null
+	);
+}
+add_action('wp_enqueue_scripts', 'child_understrap_enqueue_cdn_icons');
+
+//Menus
+function child_register_menus()
+{
+	register_nav_menus([
+		'primary' => __('Primary Menu', 'child-understrap'),
+	]);
+}
+add_action('after_setup_theme', 'child_register_menus');
+
+
+// 1) Dequeue / Deregister estilos del tema padre
+function child_dequeue_parent_styles()
+{
+	// Bajo UnderStrap el handle suele ser 'understrap-styles'
+	wp_dequeue_style('understrap-styles');
+	wp_deregister_style('understrap-styles');
+}
+add_action('wp_enqueue_scripts', 'child_dequeue_parent_styles', 20);
+
+// 2) Enqueue  CSS compilado del hijo (theme.min.css)
+function child_enqueue_compiled_css()
+{
+	$ver = filemtime(get_stylesheet_directory() . '/dist/css/theme.min.css');
+	wp_enqueue_style(
+		'child-theme-compiled',
+		get_stylesheet_directory_uri() . '/dist/css/theme.min.css',
+		array(),
+		$ver
+	);
+}
+add_action('wp_enqueue_scripts', 'child_enqueue_compiled_css', 25);
+
+// 3) Enqueue style.css al final (para overrides)
+function child_enqueue_custom_css()
+{
+	$ver = filemtime(get_stylesheet_directory() . '/style.css');
+	wp_enqueue_style(
+		'child-custom-css',
+		get_stylesheet_directory_uri() . '/style.css',
+		array('child-theme-compiled'),
+		$ver
+	);
+}
+add_action('wp_enqueue_scripts', 'child_enqueue_custom_css', 30);
