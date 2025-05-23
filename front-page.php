@@ -9,8 +9,8 @@ get_header();
 ?>
 
 <?php get_template_part('template-parts/hero'); ?>
-<?php get_template_part('template-parts/sobre-nosotros'); ?>
-<?php get_template_part('template-parts/propiedades'); ?>
+<?php get_template_part('template-parts/about'); ?>
+<?php get_template_part('template-parts/properties'); ?>
 <?php get_template_part('template-parts/ventajas'); ?>
 <?php get_template_part('template-parts/testimonios'); ?>
 <?php get_template_part('template-parts/contacto'); ?>
