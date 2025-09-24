@@ -1,6 +1,62 @@
 // Use this file to overwrite the basic Bootstrap variables and add your own variables
 // To overwrite a Bootstrap variable you don´t have to touch the Bootstrap folder.
 // Just copy a variable from src/sass/bootstrap4/_variables.scss, paste it here and edit the value.
+// custom/_variables.scss
 
-$purple: red; // Thats a sample how you could change a BootStrap variable.
-$primary: $purple; // Once we've changed the value, we'll also make it the primary brand color.
+/// _custom-variables.scss
+
+// 1. Tipografía
+// --------------------------------------------------
+// Base (body)
+$font-family-sans-serif: "Poppins", sans-serif !default;
+$font-size-base: 1rem !default;
+$line-height-base: 1.5 !default;
+
+// Encabezados
+$headings-font-family: "Montserrat", sans-serif !default;
+$headings-font-weight: 600 !default;
+$headings-line-height: 1.2 !default;
+
+// 2. Colores de marca
+// --------------------------------------------------
+// Colores principales
+$primary: #54c3cc !default; // Celeste logo
+$secondary: #8fa9b0 !default; // Gris azulado suave
+$dark: #46494c !default; // Texto oscuro
+$light: #f7f9f9 !default; // Fondo general
+
+// Color de llamada a la acción
+$cta: #ef8354 !default; // Naranja suave
+
+// Construimos el mapa de theme-colors de Bootstrap
+$theme-colors: (
+	"primary": $primary,
+	"secondary": $secondary,
+	"success": #28a745,
+	"info": $primary,
+	"warning": $cta,
+	"danger": #dc3545,
+	"light": $light,
+	"dark": $dark,
+) !default;
+
+// 3. Ajustes de fondo y texto
+// --------------------------------------------------
+$body-bg: $light !default;
+$body-color: $dark !default;
+
+// Links
+$link-color: $primary !default;
+$link-decoration: none !default;
+$link-hover-color: darken($primary, 10%) !default;
+
+// 4. Botones CTA personalizados
+// --------------------------------------------------
+$btn-border-radius: 8px !default;
+$btn-padding-y: 0.5rem !default;
+$btn-padding-x: 1rem !default;
+
+// Opcional: crear una clase .btn-cta basada en la variable $cta
+/* .btn-cta {
+	@include button-variant($cta, darken($cta, 15%));
+} */
