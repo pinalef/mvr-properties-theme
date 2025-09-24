@@ -22,16 +22,19 @@ if (is_active_sidebar('hero') || is_active_sidebar('statichero') || is_active_si
 
       <div class="row justify-content-md-center mb-4 pb-4">
         <div class="col-5">
-          <div class="border rounded px-3 py-5">
-            <p class="text-center"><i class="bi bi-house display-4 text-primary"></i></p>
-            <!-- <p class="text-center fw-semibold">¿Quién Soy? </p> -->
-            <p class="ps-3"><span class="fw-semibold">¿Quién Soy?</span> Soy una apasionada corredora de propiedades con una sólida formación en corretaje inmobiliario y marketing, lo que me permite ofrecerte una asesoría integral en cada paso de la compra, venta o arriendo de inmuebles. <br> Junto a mi equipo, nuetro objetivo es entender tus necesidades y convertir tus sueños en realidad.</p>
+          <div class="card h-100 px-3 py-4">
+            <div class="card-body">
+              <p class="card-title text-center "><i class="bi bi-house display-4 text-primary"></i></p>
+              <p class="card-text ps-3"><span class="fw-semibold">¿Quién Soy?</span> Soy una apasionada corredora de propiedades con una sólida formación en corretaje inmobiliario y marketing, lo que me permite ofrecerte una asesoría integral en cada paso de la compra, venta o arriendo de inmuebles. <br> Junto a mi equipo, nuestro objetivo es entender tus necesidades y convertir tus sueños en realidad.</p>
+            </div>
           </div>
         </div>
-        <div class="col-5 ">
-          <div class="border rounded  py-2">
-            <p class="text-center"><i class="bi bi-map display-5 text-primary"></i></p>
-            <p class="ps-3"><span class="fw-semibold">Mi Filosofía</span> En MVR Propiedades, creemos que cada propiedad tiene una historia y cada cliente, un sueño. <br> Nos dedicamos a ofrecer soluciones inmobiliarias que se adapten a tus necesidades específicas, asegurándonos de que cada transacción sea transparente, segura y exitosa. </p>
+        <div class="col-5">
+          <div class="card h-100 px-3 py-4">
+            <div class="card-body">
+              <p class="card-title text-center pb-1"><i class="bi bi-map display-5 text-primary"></i></p>
+              <p class="card-text ps-3"><span class="fw-semibold">Mi Filosofía</span> En MVR Propiedades, creemos que cada propiedad tiene una historia y cada cliente, un sueño. <br> Nos dedicamos a ofrecer soluciones inmobiliarias que se adapten a tus necesidades específicas, asegurándonos de que cada transacción sea transparente, segura y exitosa. </p>
+            </div>
           </div>
         </div>
       </div>
@@ -48,10 +51,10 @@ if (is_active_sidebar('hero') || is_active_sidebar('statichero') || is_active_si
           <div class="ps-md-5">
             <figure class="">
               <blockquote class="blockquote">
-                <p class="fst-italic"> <i class="bi bi-quote"></i>¡Hola! Soy María Verónica Rojas, <br> tu asesora confiable en el mundo inmobiliario de la Quinta región. Lidero MVR Propiedades con el compromiso de brindarte un servicio personalizado y de alta calidad.<i class="bi bi-quote inverted-text"></i></p>
+                <p class="fst-italic"> <i class="bi bi-quote"></i>¡Hola! Soy tu asesora confiable en el mundo inmobiliario de la Quinta región. Lidero MVR Propiedades con el compromiso de brindarte un servicio personalizado y de alta calidad.<i class="bi bi-quote inverted-text"></i></p>
               </blockquote>
               <figcaption class="blockquote-footer">
-                Someone famous in <cite title="Source Title">Source Title</cite>
+                María Verónica Rojas en <cite title="Source Title">MVR Propiedades</cite>
               </figcaption>
             </figure>
 
@@ -61,11 +64,7 @@ if (is_active_sidebar('hero') || is_active_sidebar('statichero') || is_active_si
 							</svg>
 						</button> -->
 
-            <button class="btn btn-primary">Contáctanos</button>
 
-            <section class="bg-primary text-white p-5">
-              <h2>Propiedades disponibles</h2>
-            </section>
 
 
 
