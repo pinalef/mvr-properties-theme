@@ -107,3 +107,115 @@ function child_enqueue_custom_css()
 	);
 }
 add_action('wp_enqueue_scripts', 'child_enqueue_custom_css', 30);
+
+// functions.php
+
+function crear_cpt_propiedades()
+{
+	$labels = array(
+		'name'                  => _x('Propiedades', 'Post Type General Name', 'text_domain'),
+		'singular_name'         => _x('Propiedad', 'Post Type Singular Name', 'text_domain'),
+		'menu_name'             => __('Propiedades', 'text_domain'),
+		'name_admin_bar'        => __('Propiedad', 'text_domain'),
+	);
+	$args = array(
+		'label'                 => __('Propiedad', 'text_domain'),
+		'description'           => __('Propiedades de la corredora', 'text_domain'),
+		'labels'                => $labels,
+		'supports'              => array('title', 'editor', 'thumbnail'), // Título, descripción y foto destacada
+		'hierarchical'          => false,
+		'public'                => true,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'menu_position'         => 5,
+		'menu_icon'             => 'dashicons-admin-home', // Ícono
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => true,
+		'can_export'            => true,
+		'has_archive'           => true,
+		'exclude_from_search'   => false,
+		'publicly_queryable'    => true,
+		'capability_type'       => 'post',
+	);
+	register_post_type('propiedad', $args);
+}
+add_action('init', 'crear_cpt_propiedades', 0);
+
+// functions.php
+
+function registrar_taxonomias_propiedades()
+{
+
+	// TAXONOMÍA: TIPO DE OPERACIÓN (Venta, Arriendo)
+	$labels_operacion = array(
+		'name'              => _x('Tipos de Operación', 'taxonomy general name'),
+		'singular_name'     => _x('Tipo de Operación', 'taxonomy singular name'),
+		'search_items'      => __('Buscar Tipos de Operación'),
+		'all_items'         => __('Todos los Tipos'),
+		'parent_item'       => __('Tipo Padre'),
+		'parent_item_colon' => __('Tipo Padre:'),
+		'edit_item'         => __('Editar Tipo de Operación'),
+		'update_item'       => __('Actualizar Tipo de Operación'),
+		'add_new_item'      => __('Añadir Nuevo Tipo de Operación'),
+		'new_item_name'     => __('Nuevo Tipo de Operación'),
+		'menu_name'         => __('Tipo de Operación'),
+	);
+	$args_operacion = array(
+		'hierarchical'      => true, // Como categorías (pueden tener jerarquía)
+		'labels'            => $labels_operacion,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array('slug' => 'operacion'), // URL amigable: /operacion/venta/
+	);
+	register_taxonomy('tipo_operacion', array('propiedad'), $args_operacion);
+
+
+	// TAXONOMÍA: TIPO DE PROPIEDAD (Casa, Departamento)
+	$labels_tipo = array(
+		'name'              => _x('Tipos de Propiedad', 'taxonomy general name'),
+		'singular_name'     => _x('Tipo de Propiedad', 'taxonomy singular name'),
+		'search_items'      => __('Buscar Tipos de Propiedad'),
+		'all_items'         => __('Todos los Tipos'),
+		'parent_item'       => null, // No jerárquica
+		'parent_item_colon' => null,
+		'edit_item'         => __('Editar Tipo de Propiedad'),
+		'update_item'       => __('Actualizar Tipo de Propiedad'),
+		'add_new_item'      => __('Añadir Nuevo Tipo de Propiedad'),
+		'new_item_name'     => __('Nuevo Tipo de Propiedad'),
+		'menu_name'         => __('Tipo de Propiedad'),
+	);
+	$args_tipo = array(
+		'hierarchical'      => false, // Como etiquetas (no jerárquica)
+		'labels'            => $labels_tipo,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array('slug' => 'tipo-propiedad'), // URL: /tipo-propiedad/casa/
+	);
+	register_taxonomy('tipo_propiedad', array('propiedad'), $args_tipo);
+
+
+	// TAXONOMÍA: ESTADO (En Venta, Vendida, etc.)
+	$labels_estado = array(
+		'name'              => _x('Estados', 'taxonomy general name'),
+		'singular_name'     => _x('Estado', 'taxonomy singular name'),
+		'search_items'      => __('Buscar Estados'),
+		'all_items'         => __('Todos los Estados'),
+		'edit_item'         => __('Editar Estado'),
+		'update_item'       => __('Actualizar Estado'),
+		'add_new_item'      => __('Añadir Nuevo Estado'),
+		'new_item_name'     => __('Nuevo Estado'),
+		'menu_name'         => __('Estado de la Propiedad'),
+	);
+	$args_estado = array(
+		'hierarchical'      => true,
+		'labels'            => $labels_estado,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array('slug' => 'estado'), // URL: /estado/en-venta/
+	);
+	register_taxonomy('estado_propiedad', array('propiedad'), $args_estado);
+}
+add_action('init', 'registrar_taxonomias_propiedades');
