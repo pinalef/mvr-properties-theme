@@ -219,3 +219,29 @@ function registrar_taxonomias_propiedades()
 	register_taxonomy('estado_propiedad', array('propiedad'), $args_estado);
 }
 add_action('init', 'registrar_taxonomias_propiedades');
+
+// TAXONOMÍA: COMUNA
+$labels_comuna = array(
+	'name'              => _x('Comunas', 'taxonomy general name'),
+	'singular_name'     => _x('Comuna', 'taxonomy singular name'),
+	'search_items'      => __('Buscar Comunas'),
+	'all_items'         => __('Todas las Comunas'),
+	'parent_item'       => __('Región/Provincia'), // Pensando a futuro
+	'parent_item_colon' => __('Región/Provincia:'),
+	'edit_item'         => __('Editar Comuna'),
+	'update_item'       => __('Actualizar Comuna'),
+	'add_new_item'      => __('Añadir Nueva Comuna'),
+	'new_item_name'     => __('Nueva Comuna'),
+	'menu_name'         => __('Comuna'),
+);
+$args_comuna = array(
+	'hierarchical'      => true, // Como categorías. Permite anidar (ej: Santiago -> Providencia)
+	'labels'            => $labels_comuna,
+	'show_ui'           => true,
+	'show_admin_column' => true,
+	'query_var'         => true,
+	'rewrite'           => array('slug' => 'comuna'), // URL: /comuna/providencia/
+);
+register_taxonomy('comuna', array('propiedad'), $args_comuna);
+
+//... (Asegúrate que esto esté dentro de tu función registrar_taxonomias_propiedades)
