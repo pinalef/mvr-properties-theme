@@ -73,6 +73,17 @@ function child_register_menus()
 add_action('after_setup_theme', 'child_register_menus');
 
 
+
+function register_footer_menus()
+{
+	register_nav_menus(array(
+		'footer-menu-rapido' => esc_html__('Menú Rápido del Footer', 'text-domain'),
+		'footer-menu-legal'  => esc_html__('Menú Legal del Footer', 'text-domain'),
+	));
+}
+add_action('after_setup_theme', 'register_footer_menus');
+
+
 // 1) Dequeue / Deregister estilos del tema padre
 function child_dequeue_parent_styles()
 {
@@ -243,5 +254,3 @@ $args_comuna = array(
 	'rewrite'           => array('slug' => 'comuna'), // URL: /comuna/providencia/
 );
 register_taxonomy('comuna', array('propiedad'), $args_comuna);
-
-//... (Asegúrate que esto esté dentro de tu función registrar_taxonomias_propiedades)
