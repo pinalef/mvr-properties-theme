@@ -13,7 +13,7 @@ get_header();
   <div class="container" id="content" tabindex="-1">
     <main class="site-main" id="main">
 
-      <section class="hero text-center p-5 mb-4 bg-light">
+      <section class="hero text-center p-5  bg-light">
         <h1>Bienvenido a Nuestra Corredora</h1>
         <p>Las mejores propiedades a tu alcance.</p>
       </section>
@@ -78,5 +78,3 @@ get_header();
     </main>
   </div>
 </div>
-
-<?php get_footer(); ?>
