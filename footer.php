@@ -1,4 +1,18 @@
-<div class="wrapper" id="wrapper-footer" style="background-color: <?php echo $dark; ?>; color: <?php echo $light; ?>;">
+<?php
+// Código para el botón de WhatsApp
+$numero_wsp = '56912345678'; // Ejemplo: +56 9 1234 5678 (Sin signos + ni espacios)
+$mensaje_wsp = urlencode("¡Hola! Estoy interesado en los servicios de [NOMBRE DE LA CORREDORA]. ¿Podrían brindarme más información?");
+?>
+
+<a href="https://api.whatsapp.com/send?phone=<?php echo esc_attr($numero_wsp); ?>&text=<?php echo esc_attr($mensaje_wsp); ?>"
+	class="wsp-button"
+	target="_blank"
+	rel="noopener noreferrer"
+	title="Contáctanos por WhatsApp">
+
+	<i class="bi bi-whatsapp"></i>
+</a>
+<div class="wrapper bg-dark text-white" id="wrapper-footer">
 
 	<div class="container py-5">
 		<div class="row">

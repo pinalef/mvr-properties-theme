@@ -9,3 +9,54 @@
 .ms-n7 {
 	margin-left: -3rem !important;
 }
+/* ========================================================================= */
+/* CLASE: Botón Flotante de WhatsApp */
+/* ========================================================================= */
+
+// Asumimos que $success (el verde de Bootstrap) o $primary (tu celeste)
+// son los colores base para el hover. Usaremos un verde más vibrante.
+
+$whatsapp-green: #25d366;
+$whatsapp-green-dark: #128c7e;
+
+.wsp-button {
+	// 1. Posicionamiento Fijo para acompañar el scroll
+	position: fixed;
+	bottom: 20px; // Margen inferior (ajustar si tienes un footer sticky)
+	right: 20px; // Margen derecho
+	z-index: 999; // Asegura que esté por encima de otros elementos
+
+	// 2. Estilo del Botón (Círculo)
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: $whatsapp-green;
+	color: white;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); // Sombra sutil para "flotar"
+
+	// 3. Contenido (Centrar Icono)
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 30px; // Tamaño del icono (bi bi-whatsapp)
+	text-decoration: none; // Remover subrayado del enlace
+
+	// 4. Transiciones y Hover (Interacción)
+	transition: background-color 0.3s ease, transform 0.3s ease;
+
+	// Efecto visual al pasar el mouse
+	&:hover {
+		background-color: $whatsapp-green-dark;
+		color: white; // Asegura que el color del icono no cambie
+		transform: scale(1.05); // Ligeramente más grande para feedback
+	}
+
+	// 5. Soporte para Pantallas Pequeñas (Opcional, pero bueno)
+	@media (max-width: 576px) {
+		width: 55px;
+		height: 55px;
+		bottom: 15px;
+		right: 15px;
+		font-size: 28px;
+	}
+}
