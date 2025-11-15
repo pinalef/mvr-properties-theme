@@ -45,25 +45,104 @@ foreach ($understrap_includes as $file) {
 	require_once get_theme_file_path($understrap_inc_dir . $file);
 }
 
-add_action('wp_enqueue_scripts', 'enqueue_parent_styles');
-function enqueue_parent_styles()
+// ==============================================================================
+// 🛑 CONSOLIDACIÓN DE ASSETS (CSS Y JS) DEL TEMA HIJO
+// Ruta corregida: /js/theme.min.js
+// ==============================================================================
+function child_theme_assets()
 {
-	wp_enqueue_style('understrap-styles', get_template_directory_uri() . '/css/theme.min.css');
-}
 
-//bootstrap icons
-function child_understrap_enqueue_cdn_icons()
-{
+	// 1. DEQUEUE: Desactivar los estilos y scripts del tema PADRE (UnderStrap) para evitar conflictos.
+	wp_dequeue_style('understrap-styles');
+	wp_deregister_style('understrap-styles');
+	wp_dequeue_script('understrap-scripts');
+	wp_deregister_script('understrap-scripts');
+
+	// 2. ENQUEUE CSS: Cargar el CSS compilado del hijo (theme.min.css)
+	// Asumimos que el CSS sigue estando en /dist/css/theme.min.css o ajusta la ruta si es necesario.
+	$css_path = '/dist/css/theme.min.css';
+	$css_ver = file_exists(get_stylesheet_directory() . $css_path) ? filemtime(get_stylesheet_directory() . $css_path) : '1.0.0';
+
+	wp_enqueue_style(
+		'child-theme-compiled-css',
+		get_stylesheet_directory_uri() . $css_path,
+		array(),
+		$css_ver
+	);
+
+	// 3. ENQUEUE JS: Cargar el JavaScript compilado del hijo (theme.min.js, que incluye Bootstrap)
+	// 🛑 RUTA CORREGIDA: Buscamos en /js/ para coincidir con la salida de tu compilación local.
+	$js_path = '/js/theme.min.js';
+	$js_ver = '1.0.0'; // Versión fija para asegurar que el PHP no falle si el archivo no existe.
+
+	// CRÍTICO: El JS debe depender de jQuery y cargarse en el footer para Bootstrap
+	wp_enqueue_script(
+		'child-bootstrap-js',
+		get_stylesheet_directory_uri() . $js_path,
+		array('jquery'),
+		$js_ver,
+		true
+	);
+
+	// 4. Cargar Bootstrap Icons (CDN)
 	wp_enqueue_style(
 		'bootstrap-icons-cdn',
 		'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css',
 		[],
 		null
 	);
-}
-add_action('wp_enqueue_scripts', 'child_understrap_enqueue_cdn_icons');
 
-//Menus
+	// 1. Cargar CSS de Swiper desde CDN
+	wp_enqueue_style(
+		'swiper-css',
+		'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css',
+		array(),
+		'12.0.3'
+	);
+
+	// 6. Cargar CSS Personalizado para la galería (DESPUÉS del CSS base de Swiper)
+	$css_custom_path = '/css/swiper-custom.css';
+	$css_custom_ver = '1.0.3'; // Usamos una versión nueva para forzar la recarga
+
+	wp_enqueue_style(
+		'swiper-custom-css',
+		get_stylesheet_directory_uri() . $css_custom_path,
+		array('swiper-css'), // Dependencia CRÍTICA: se carga después de Swiper CSS
+		$css_custom_ver
+	);
+	// ---------------------------------------------------------------------
+	// FIN SWIPER ASSETS
+	// ---------------------------------------------------------------------
+
+	// 2. Cargar JS de Swiper desde CDN
+	wp_enqueue_script(
+		'swiper-js',
+		'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js',
+		array('jquery'),
+		'12.0.3',
+		true // Cargar en el footer
+	);
+
+	// 3. Cargar Script de Inicialización (asumiendo que está en /js/swiper-init.js)
+	$js_path = '/js/swiper-init.js';
+	$js_ver = file_exists(get_stylesheet_directory() . $js_path) ? filemtime(get_stylesheet_directory() . $js_path) : '1.0.0';
+
+	wp_enqueue_script(
+		'swiper-init',
+		get_stylesheet_directory_uri() . $js_path,
+		array('swiper-js'), // Depende de que Swiper ya se haya cargado
+		$js_ver,
+		true // Cargar en el footer
+	);
+}
+// Usamos una prioridad ALTA (99) para anular la configuración del tema padre.
+add_action('wp_enqueue_scripts', 'child_theme_assets', 99);
+
+
+// ------------------------------------------------------------------------------
+// Menús
+// ------------------------------------------------------------------------------
+
 function child_register_menus()
 {
 	register_nav_menus([
@@ -71,7 +150,6 @@ function child_register_menus()
 	]);
 }
 add_action('after_setup_theme', 'child_register_menus');
-
 
 
 function register_footer_menus()
@@ -83,43 +161,9 @@ function register_footer_menus()
 }
 add_action('after_setup_theme', 'register_footer_menus');
 
-
-// 1) Dequeue / Deregister estilos del tema padre
-function child_dequeue_parent_styles()
-{
-	// Bajo UnderStrap el handle suele ser 'understrap-styles'
-	wp_dequeue_style('understrap-styles');
-	wp_deregister_style('understrap-styles');
-}
-add_action('wp_enqueue_scripts', 'child_dequeue_parent_styles', 20);
-
-// 2) Enqueue  CSS compilado del hijo (theme.min.css)
-function child_enqueue_compiled_css()
-{
-	$ver = filemtime(get_stylesheet_directory() . '/dist/css/theme.min.css');
-	wp_enqueue_style(
-		'child-theme-compiled',
-		get_stylesheet_directory_uri() . '/dist/css/theme.min.css',
-		array(),
-		$ver
-	);
-}
-add_action('wp_enqueue_scripts', 'child_enqueue_compiled_css', 25);
-
-// 3) Enqueue style.css al final (para overrides)
-function child_enqueue_custom_css()
-{
-	$ver = filemtime(get_stylesheet_directory() . '/style.css');
-	wp_enqueue_style(
-		'child-custom-css',
-		get_stylesheet_directory_uri() . '/style.css',
-		array('child-theme-compiled'),
-		$ver
-	);
-}
-add_action('wp_enqueue_scripts', 'child_enqueue_custom_css', 30);
-
-// functions.php
+// ------------------------------------------------------------------------------
+// CPT Propiedades
+// ------------------------------------------------------------------------------
 
 function crear_cpt_propiedades()
 {
@@ -152,7 +196,10 @@ function crear_cpt_propiedades()
 }
 add_action('init', 'crear_cpt_propiedades', 0);
 
-// functions.php
+
+// ------------------------------------------------------------------------------
+// Taxonomías Propiedades
+// ------------------------------------------------------------------------------
 
 function registrar_taxonomias_propiedades()
 {
@@ -228,29 +275,30 @@ function registrar_taxonomias_propiedades()
 		'rewrite'           => array('slug' => 'estado'), // URL: /estado/en-venta/
 	);
 	register_taxonomy('estado_propiedad', array('propiedad'), $args_estado);
+
+
+	// TAXONOMÍA: COMUNA
+	$labels_comuna = array(
+		'name'              => _x('Comunas', 'taxonomy general name'),
+		'singular_name'     => _x('Comuna', 'taxonomy singular name'),
+		'search_items'      => __('Buscar Comunas'),
+		'all_items'         => __('Todas las Comunas'),
+		'parent_item'       => __('Región/Provincia'), // Pensando a futuro
+		'parent_item_colon' => __('Región/Provincia:'),
+		'edit_item'         => __('Editar Comuna'),
+		'update_item'       => __('Actualizar Comuna'),
+		'add_new_item'      => __('Añadir Nueva Comuna'),
+		'new_item_name'     => __('Nueva Comuna'),
+		'menu_name'         => __('Comuna'),
+	);
+	$args_comuna = array(
+		'hierarchical'      => true, // Como categorías. Permite anidar (ej: Santiago -> Providencia)
+		'labels'            => $labels_comuna,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array('slug' => 'comuna'), // URL: /comuna/providencia/
+	);
+	register_taxonomy('comuna', array('propiedad'), $args_comuna);
 }
 add_action('init', 'registrar_taxonomias_propiedades');
-
-// TAXONOMÍA: COMUNA
-$labels_comuna = array(
-	'name'              => _x('Comunas', 'taxonomy general name'),
-	'singular_name'     => _x('Comuna', 'taxonomy singular name'),
-	'search_items'      => __('Buscar Comunas'),
-	'all_items'         => __('Todas las Comunas'),
-	'parent_item'       => __('Región/Provincia'), // Pensando a futuro
-	'parent_item_colon' => __('Región/Provincia:'),
-	'edit_item'         => __('Editar Comuna'),
-	'update_item'       => __('Actualizar Comuna'),
-	'add_new_item'      => __('Añadir Nueva Comuna'),
-	'new_item_name'     => __('Nueva Comuna'),
-	'menu_name'         => __('Comuna'),
-);
-$args_comuna = array(
-	'hierarchical'      => true, // Como categorías. Permite anidar (ej: Santiago -> Providencia)
-	'labels'            => $labels_comuna,
-	'show_ui'           => true,
-	'show_admin_column' => true,
-	'query_var'         => true,
-	'rewrite'           => array('slug' => 'comuna'), // URL: /comuna/providencia/
-);
-register_taxonomy('comuna', array('propiedad'), $args_comuna);
