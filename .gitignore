@@ -50,6 +50,7 @@ node_modules
 phpcs.xml
 dist-product/
 **/img
+plugins.txt
 
 
 # WordPress core
