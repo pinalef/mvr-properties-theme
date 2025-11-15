@@ -1,0 +1,97 @@
+/* -------------------------------------------------------------------------
+   Estilos Personalizados para la Galería Swiper de Propiedades (UX OPTIMIZADO)
+------------------------------------------------------------------------- */
+
+/* Contenedor Principal de la Imagen Grande */
+.swiper-main {
+	/* Define la altura máxima o usa el 'aspect-ratio' definido en el PHP */
+	width: 100%;
+	/* Necesario para posicionar los botones de navegación de forma absoluta */
+	position: relative;
+	overflow: hidden;
+}
+
+.swiper-main img {
+	/* Asegura que la imagen mantenga su relación de aspecto */
+	object-fit: cover;
+	/* Ajuste para dispositivos móviles (ya está manejado por el PHP aspect-ratio: 16/9) */
+	max-height: 400px;
+}
+
+/* -------------------------------------------------------------------------
+   Estilos de Navegación (Flechas) - Mejor Contraste y Click Táctil
+------------------------------------------------------------------------- */
+
+/* Botones Anterior/Siguiente */
+.swiper-main .swiper-button-prev,
+.swiper-main .swiper-button-next {
+	/* Color de flechas */
+	color: #ffffff;
+	/* Fondo más oscuro para mejor visibilidad */
+	background-color: rgba(0, 0, 0, 0.6);
+	padding: 15px 10px;
+	border-radius: 8px; /* Más redondeado y moderno */
+	opacity: 0.9;
+	transition: all 0.2s ease-in-out;
+	/* Tamaño de la flecha */
+	--swiper-navigation-size: 24px; /* Un poco más grandes para mejor UX táctil */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra para que destaque del fondo */
+	width: 40px; /* Asegura un buen touch target */
+	height: 60px; /* Asegura un buen touch target */
+}
+
+.swiper-main .swiper-button-prev:hover,
+.swiper-main .swiper-button-next:hover {
+	opacity: 1;
+	background-color: rgba(0, 0, 0, 0.8); /* Fondo más opaco al pasar el ratón */
+	transform: scale(1.05); /* Efecto sutil de interacción */
+}
+
+/* Posición de la flecha Anterior */
+.swiper-main .swiper-button-prev {
+	left: 10px;
+}
+
+/* Posición de la flecha Siguiente */
+.swiper-main .swiper-button-next {
+	right: 10px;
+}
+
+/* -------------------------------------------------------------------------
+   Estilos de Miniaturas (Thumbs) - Claridad del Estado Activo
+------------------------------------------------------------------------- */
+
+.swiper-thumbs {
+	/* Altura fija para la fila de miniaturas */
+	height: 100px;
+	width: 100%;
+	/* Opcional: añade un poco de espacio si es necesario */
+	margin-top: 10px;
+}
+
+.swiper-thumbs .swiper-slide {
+	/* Asegura que el slide tiene un borde para indicar la selección */
+	border: 3px solid transparent; /* Borde más grueso para mejor visibilidad del estado */
+	box-sizing: border-box;
+	transition: border-color 0.2s;
+	overflow: hidden; /* Asegura que la imagen no se salga */
+}
+
+/* Efecto de hover en miniaturas no activas (para feedback visual) */
+.swiper-thumbs .swiper-slide:not(.swiper-slide-thumb-active):hover {
+	border-color: #ced4da; /* Un gris sutil para indicar interacción */
+	cursor: pointer;
+}
+
+/* Estilo para la miniatura activa (seleccionada) */
+.swiper-thumbs .swiper-slide-thumb-active {
+	border-color: #007bff; /* Color primario de Bootstrap (se podría cambiar a una variable del tema) */
+	opacity: 1;
+}
+
+.swiper-thumbs img {
+	/* Asegura que la miniatura cubra el espacio sin distorsión */
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+}
