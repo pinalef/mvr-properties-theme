@@ -13,6 +13,7 @@
 
 .swiper-main img {
 	/* Asegura que la imagen mantenga su relación de aspecto */
+	-o-object-fit: cover;
 	object-fit: cover;
 	/* Ajuste para dispositivos móviles (ya está manejado por el PHP aspect-ratio: 16/9) */
 	max-height: 400px;
@@ -91,7 +92,9 @@
 
 .swiper-thumbs img {
 	/* Asegura que la miniatura cubra el espacio sin distorsión */
+	-o-object-fit: cover;
 	object-fit: cover;
 	height: 100%;
 	width: 100%;
 }
+/*# sourceMappingURL=swiper-custom.css.map */
